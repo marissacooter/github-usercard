@@ -3,14 +3,24 @@
            https://api.github.com/users/<your name>
 */
 
+const myCardParent = document.querySelector('div.cards');
+
 axios.get('https://api.github.com/users/marissacooter')
   .then(response => {
     console.log(response);
-    response.data.message.forEach(crdSrc => {
-      entryPoint.append(myCard(crdSrc))
-    })
+    myCardParent.append(myGitCrd(response.data))
+    }) 
+    .catch(error => {
+    console.log("the data was not returned", error)
   })
-  .catch(error => {
+
+
+  axios.get('https://api.github.com/users/marissacooter/followers')
+  .then(response => {
+    console.log(response);
+    response.data.forEach(card => myCardParent.append(myGitCrd(card)))
+    }) 
+    .catch(error => {
     console.log("the data was not returned", error)
   })
 
@@ -61,48 +71,51 @@ function myGitCrd (object){
   const crd = document.createElement('div');
   crd.classList.add('card');
 
+  const crdImg = document.createElement('img');
+  crdImg.setAttribute('src', object.avatar_url);
+  crd.append(crdImg);
+
   const crdInfo = document.createElement('div');
   crdInfo.classList.add('card-info');
   crd.append(crdInfo);
 
-  const crdImg = document.createElement('img');
-  crdImg.setAttribute = object.avatar_url;
-  crd.append(crdImg);
-
   const crdName = document.createElement('h3');
   crdName.classList.add('name');
-  crdName.textContent = object.name;
-  crd.append(crdName);
+  crdName.textContent = `${object.name}`;
+  crdInfo.append(crdName);
 
   const login = document.createElement('p');
   login.classList.add('username');
-  crdName.textContent = object.login;
-  crd.append(login);
+  login.textContent = object.login;
+  crdInfo.append(login);
 
   const loc = document.createElement('p');
-  loc.textContent = object.location;
-  crd.append(loc);
+  loc.textContent = `Location: ${object.location}`
+  crdInfo.append(loc);
 
-  const url = document.createElement('p');
-  url.textContent = object.url;
-  crd.append(url);
+  const prof = document.createElement('p');
+  crdInfo.append(prof);
 
   const anchor = document.createElement('a');
-  anchor.textContent = object.anchor;
-  url.append(anchor);
+  anchor.setAttribute('href', object.html_url);
+  anchor.textContent = `Profile`;
+  prof.append(anchor);
 
   const followers = document.createElement('p');
-  followers.textContent = object.followers;
-  crd.append(followers);
+  followers.textContent = `Followers: ${object.followers}`;
+  crdInfo.append(followers);
 
   const following = document.createElement('p');
-  following.textContent = object.following;
-  crd.append(following);
+  following.textContent = `Following: ${object.following}`;
+  crdInfo.append(following);
 
   const bio = document.createElement('p');
-  bio.textContent = object.bio;
-  crd.append(bio);
+  bio.textContent = `Bio: Null`;
+  crdInfo.append(bio);
+
+  return crd;
 }
+
 
 /* List of LS Instructors Github username's: 
   tetondan

@@ -53,3 +53,14 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+axios.get('https://github.com/marissacooter');
+  .then(response => {
+    console.log(response);
+    response.data.message.forEach(imgSrc => {
+      entryPoint.append(myCard(imgSrc))
+    })
+  })
+  .catch(error => {
+    console.log("the data was not returned", error)
+  })

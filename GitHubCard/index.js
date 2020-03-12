@@ -116,7 +116,6 @@ function myGitCrd (object){
   return crd;
 }
 
-
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers

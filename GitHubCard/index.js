@@ -3,6 +3,17 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/marissacooter')
+  .then(response => {
+    console.log(response);
+    response.data.message.forEach(crdSrc => {
+      entryPoint.append(myCard(crdSrc))
+    })
+  })
+  .catch(error => {
+    console.log("the data was not returned", error)
+  })
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -46,6 +57,53 @@ const followersArray = [];
 
 */
 
+function myGitCrd (object){
+  const crd = document.createElement('div');
+  crd.classList.add('card');
+
+  const crdInfo = document.createElement('div');
+  crdInfo.classList.add('card-info');
+  crd.append(crdInfo);
+
+  const crdImg = document.createElement('img');
+  crdImg.setAttribute = object.avatar_url;
+  crd.append(crdImg);
+
+  const crdName = document.createElement('h3');
+  crdName.classList.add('name');
+  crdName.textContent = object.name;
+  crd.append(crdName);
+
+  const login = document.createElement('p');
+  login.classList.add('username');
+  crdName.textContent = object.login;
+  crd.append(login);
+
+  const loc = document.createElement('p');
+  loc.textContent = object.location;
+  crd.append(loc);
+
+  const url = document.createElement('p');
+  url.textContent = object.url;
+  crd.append(url);
+
+  const anchor = document.createElement('a');
+  anchor.textContent = object.anchor;
+  url.append(anchor);
+
+  const followers = document.createElement('p');
+  followers.textContent = object.followers;
+  crd.append(followers);
+
+  const following = document.createElement('p');
+  following.textContent = object.following;
+  crd.append(following);
+
+  const bio = document.createElement('p');
+  bio.textContent = object.bio;
+  crd.append(bio);
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,14 +111,3 @@ const followersArray = [];
   luishrd
   bigknell
 */
-
-axios.get('https://github.com/marissacooter');
-  .then(response => {
-    console.log(response);
-    response.data.message.forEach(imgSrc => {
-      entryPoint.append(myCard(imgSrc))
-    })
-  })
-  .catch(error => {
-    console.log("the data was not returned", error)
-  })

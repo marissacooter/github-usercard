@@ -89,12 +89,12 @@ function myGitCrd (object){
   login.textContent = object.login;
   crdInfo.append(login);
 
+  const prof = document.createElement('p');
+  crdInfo.append(prof);
+
   const loc = document.createElement('p');
   loc.textContent = `Location: ${object.location}`
   crdInfo.append(loc);
-
-  const prof = document.createElement('p');
-  crdInfo.append(prof);
 
   const anchor = document.createElement('a');
   anchor.setAttribute('href', object.html_url);
@@ -110,7 +110,7 @@ function myGitCrd (object){
   crdInfo.append(following);
 
   const bio = document.createElement('p');
-  bio.textContent = `Bio: Null`;
+  bio.textContent = `Bio: ${object.bio}`;
   crdInfo.append(bio);
 
   return crd;

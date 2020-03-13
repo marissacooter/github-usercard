@@ -18,7 +18,12 @@ axios.get('https://api.github.com/users/marissacooter')
   axios.get('https://api.github.com/users/marissacooter/followers')
   .then(response => {
     console.log(response);
-    response.data.forEach(card => myCardParent.append(myGitCrd(card)))
+    response.data.forEach(item => { 
+    axios.get(`https://api.github.com/users/${item.login}`)
+    .then(res => {
+      myCardParent.append(myGitCrd(res.data)
+    )})
+  })
     }) 
     .catch(error => {
     console.log("the data was not returned", error)

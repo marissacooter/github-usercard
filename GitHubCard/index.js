@@ -14,7 +14,7 @@ axios.get('https://api.github.com/users/marissacooter')
     console.log("the data was not returned", error)
   })
 
-
+// THIS WORKS BUT THERE IS A BETTER WAY .. SEE BELOW
   axios.get('https://api.github.com/users/marissacooter/followers')
   .then(response => {
     console.log(response);
@@ -28,6 +28,13 @@ axios.get('https://api.github.com/users/marissacooter')
     .catch(error => {
     console.log("the data was not returned", error)
   })
+
+  // THE BETTER WAY:
+
+  // axios.get('https://api.github.com/users/marissacooter/followers', config)
+  //   .then(response => Promise.all(response.data.map(follower => axios.get(follower.url, config))))
+  //   .then(results => results.forEach(user => cardsParent.appendChild(createComponent(user.data))))
+  //   .catch(console.log)
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
